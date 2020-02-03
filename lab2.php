@@ -41,7 +41,7 @@ try {
         array_push($programmer['applications'], $id);
     }
 
-    $manager->executeBulkWrite('profile.programmers', $app);
+    $manager->executeBulkWrite('profile.programmers', $bulk);
 
 } catch (\MongoDB\Driver\Exception\Exception $e) {
     echo "Fetching apps ids is failed";
