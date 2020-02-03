@@ -34,11 +34,12 @@ try {
         "last_name" => "Miniailo",
         "group" => "121-16-1",
         "profile" => "Java Developer",
-        "Applications" => array($appsIds[0],
-            $appsIds[0],
-            $appsIds[0]
-        )
+        "applications" => array()
     );
+
+    foreach ($appsIds as $id) {
+        array_push($programmer['applications'], $id);
+    }
 
     $manager->executeBulkWrite('profile.programmers', $app);
 
