@@ -17,9 +17,13 @@ $applicationsList = array(
     )
 );
 
+
 foreach ($applicationsList as $app) {
-    $manager->executeBulkWrite('applications', $app);
+    $bulk->insert($app);
 }
+
+$manager->executeBulkWrite('profile.applications', $bulk);
+
 
 $programmer = array(
     "first_name" => "Daniel",
@@ -33,6 +37,6 @@ $programmer = array(
     )
 );
 
-$manager->executeBulkWrite('programmers', $app);
+$manager->executeBulkWrite('profile.programmers', $app);
 
 ?>
