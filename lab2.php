@@ -32,7 +32,7 @@ foreach ($applicationsList as $app) {
 try {
     $appsIds = $manager->executeQuery("profile.applications", $read);
 
-
+    
     $insertProgrammers = new MongoDB\Driver\BulkWrite;
 
     $manager->executeBulkWrite('profile.applications', $bulk);
