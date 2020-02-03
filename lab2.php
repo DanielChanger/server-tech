@@ -2,7 +2,12 @@
 
 $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 $bulk = new MongoDB\Driver\BulkWrite;
-$read = new MongoDB\Driver\Query([], ['_id' => 1, 'total' => 3]);
+$read = new MongoDB\Driver\Query([], ['_id' => 1, 'total' => 1]);
+
+$bulk->delete([], ['limit' => 0]);
+$manager->executeBulkWrite('profile.applications', $bulk);
+$manager->executeBulkWrite('profile.programmers', $bulk);
+
 
 $applicationsList = array(
     array(
@@ -27,7 +32,6 @@ foreach ($applicationsList as $app) {
 try {
     $appsIds = $manager->executeQuery("profile.applications", $read);
 
-
     $manager->executeBulkWrite('profile.applications', $bulk);
     $programmer = array(
         "first_name" => "Daniel",
@@ -45,6 +49,7 @@ try {
 
 } catch (\MongoDB\Driver\Exception\Exception $e) {
     echo "Fetching apps ids is failed";
+    echo $e->getTraceAsString();
     exit(1);
 }
 ?>
