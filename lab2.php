@@ -1,6 +1,8 @@
 <?php
+
 $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 $bulk = new MongoDB\Driver\BulkWrite;
+$read = new MongoDB\Driver\Query([], ['_id' => 1, 'total' => 3]);
 
 $applicationsList = array(
     array(
@@ -22,21 +24,26 @@ foreach ($applicationsList as $app) {
     $bulk->insert($app);
 }
 
-$manager->executeBulkWrite('profile.applications', $bulk);
+try {
+    $appsIds = $manager->executeQuery("profile.applications", $read);
 
 
-$programmer = array(
-    "first_name" => "Daniel",
-    "last_name" => "Miniailo",
-    "group" => "121-16-1",
-    "profile" => "Java Developer",
-    "Applications" => array(
-        MongoDBRef::create('applications', $applicationsList[0]['_id']),
-        MongoDBRef::create('applications', $applicationsList[1]['_id']),
-        MongoDBRef::create('applications', $applicationsList[2]['_id']),
-    )
-);
+    $manager->executeBulkWrite('profile.applications', $bulk);
+    $programmer = array(
+        "first_name" => "Daniel",
+        "last_name" => "Miniailo",
+        "group" => "121-16-1",
+        "profile" => "Java Developer",
+        "Applications" => array($appsIds[0],
+            $appsIds[0],
+            $appsIds[0]
+        )
+    );
 
-$manager->executeBulkWrite('profile.programmers', $app);
+    $manager->executeBulkWrite('profile.programmers', $app);
 
+} catch (\MongoDB\Driver\Exception\Exception $e) {
+    echo "Fetching apps ids is failed";
+    exit(1);
+}
 ?>
