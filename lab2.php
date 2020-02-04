@@ -4,12 +4,19 @@ $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 
 $removeApps = new MongoDB\Driver\BulkWrite;
 $removeApps->delete([], ['limit' => false]);
-$manager->executeBulkWrite('profile.applications', $removeApps);
+$result = $manager->executeBulkWrite('profile.applications', $removeApps);
+
+if ($result) {
+    echo "Applications collection refreshed successfully";
+}
 
 $removeDevs = new MongoDB\Driver\BulkWrite;
 $removeDevs->delete([], ['limit' => false]);
-$manager->executeBulkWrite('profile.developers', $removeDevs);
+$result = $manager->executeBulkWrite('profile.developers', $removeDevs);
 
+if ($result) {
+    echo "Developers collection refreshed successfully";
+}
 
 $applicationsList = array(
     array(
@@ -30,33 +37,47 @@ $insertApps = new MongoDB\Driver\BulkWrite;
 foreach ($applicationsList as $app) {
     $insertApps->insert($app);
 }
-$manager->executeBulkWrite('profile.applications', $insertApps);
+
+$result = $manager->executeBulkWrite('profile.applications', $insertApps);
+
+if ($result) {
+    echo "New applications documents inserted successfully";
+}
+
+$developer = array(
+    "first_name" => "Daniel",
+    "last_name" => "Miniailo",
+    "group" => "121-16-1",
+    "profile" => "Java Developer",
+);
+
+$insertDev = new MongoDB\Driver\BulkWrite;
+$insertDev->insert($developer);
+$result = $manager->executeBulkWrite('profile.developers', $insertDev);
+
+if ($result) {
+    echo "New developer document inserted successfully";
+}
 
 try {
-
-    $developer = array(
-        "first_name" => "Daniel",
-        "last_name" => "Miniailo",
-        "group" => "121-16-1",
-        "profile" => "Java Developer",
-        "applications" => array()
-    );
-
-    $insertDev = new MongoDB\Driver\BulkWrite;
-    $insertDev->insert($developer);
-    $manager->executeBulkWrite('profile.developers', $insertDev);
-
-
     $readAppsIds = new MongoDB\Driver\Query([], ['name' => 0, 'created_at' => 0, "_id" => 1]);
-    $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
+    $result = $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
+    if ($result) {
+        echo "Apps _ids fetched successfully";
+    }
+
+    $applications = array();
     foreach ($appsIds as $id) {
-        array_push($developer['applications'], $id);
+        array_push($applications, $id);
     }
 
     $updateDev = new MongoDB\Driver\BulkWrite;
-    $updateDev->insert($developer);
-    $manager->executeBulkWrite('profile.developers', $insertDev);
+    $updateDev->update(['first_name' => 'Daniel'], ['$set' => ['applications' => $applications]]);
+    $result = $manager->executeBulkWrite('profile.developers', $insertDev);
+    if ($result) {
+        echo "Developer document updated successfully";
+    }
 
 } catch (\MongoDB\Driver\Exception\Exception $e) {
     echo "Something went wrong\n";
