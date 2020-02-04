@@ -39,6 +39,7 @@ try {
         "last_name" => "Miniailo",
         "group" => "121-16-1",
         "profile" => "Java Developer",
+        "applications" => array()
     );
 
     $insertDev = new MongoDB\Driver\BulkWrite;
