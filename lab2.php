@@ -4,19 +4,11 @@ $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 
 $removeApps = new MongoDB\Driver\BulkWrite;
 $removeApps->delete([], ['limit' => false]);
-$result = $manager->executeBulkWrite('profile.applications', $removeApps);
-
-if ($result) {
-    echo nl2br("Applications collection refreshed successfully");
-}
+$manager->executeBulkWrite('profile.applications', $removeApps);
 
 $removeDevs = new MongoDB\Driver\BulkWrite;
 $removeDevs->delete([], ['limit' => false]);
-$result = $manager->executeBulkWrite('profile.developers', $removeDevs);
-
-if ($result) {
-    echo nl2br("Developers collection refreshed successfully");
-}
+$manager->executeBulkWrite('profile.developers', $removeDevs);
 
 $applicationsList = array(
     array(
@@ -38,11 +30,7 @@ foreach ($applicationsList as $app) {
     $insertApps->insert($app);
 }
 
-$result = $manager->executeBulkWrite('profile.applications', $insertApps);
-
-if ($result) {
-    echo nl2br("New applications documents inserted successfully");
-}
+$manager->executeBulkWrite('profile.applications', $insertApps);
 
 $developer = array(
     "first_name" => "Daniel",
@@ -53,19 +41,12 @@ $developer = array(
 
 $insertDev = new MongoDB\Driver\BulkWrite;
 $insertDev->insert($developer);
-$result = $manager->executeBulkWrite('profile.developers', $insertDev);
-
-if ($result) {
-    echo nl2br("New developer document inserted successfully");
-}
+$manager->executeBulkWrite('profile.developers', $insertDev);
 
 try {
     $readAppsIds = new MongoDB\Driver\Query([], ['name' => 0, 'created_at' => 0, "_id" => 1]);
-    $result = $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
+    $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
-    if ($result) {
-        echo nl2br("Apps _ids fetched successfully");
-    }
 } catch (\MongoDB\Driver\Exception\Exception $e) {
     echo $e->getTraceAsString();
     exit(1);
@@ -77,8 +58,5 @@ try {
 
     $updateDev = new MongoDB\Driver\BulkWrite;
     $updateDev->update(['first_name' => 'Daniel'], ['$set' => ['applications' => $applications]]);
-    $result = $manager->executeBulkWrite('profile.developers', $updateDev);
-    if ($result) {
-        echo nl2br("Developer document updated successfully");
-    }
+    $manager->executeBulkWrite('profile.developers', $updateDev);
 ?>
