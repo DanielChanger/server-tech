@@ -1,12 +1,14 @@
 <?php
 
 $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
-$bulk = new MongoDB\Driver\BulkWrite;
-$read = new MongoDB\Driver\Query([], ['_id' => 1, 'total' => 1]);
 
-$bulk->delete([], ['limit' => 0]);
-$manager->executeBulkWrite('profile.applications', $bulk);
-$manager->executeBulkWrite('profile.programmers', $bulk);
+$removeApps = new MongoDB\Driver\BulkWrite;
+$removeApps->delete([], ['limit' => false]);
+$manager->executeBulkWrite('profile.applications', $removeApps);
+
+$removeDevs = new MongoDB\Driver\BulkWrite;
+$removeDevs->delete([], ['limit' => false]);
+$manager->executeBulkWrite('profile.developers', $removeDevs);
 
 
 $applicationsList = array(
@@ -24,18 +26,18 @@ $applicationsList = array(
     )
 );
 
-
+$insertApps = new MongoDB\Driver\BulkWrite;
 foreach ($applicationsList as $app) {
-    $bulk->insert($app);
+    $insertApps->insert($app);
 }
+$manager->executeBulkWrite('profile.applications', $insertApps);
 
 try {
-    $appsIds = $manager->executeQuery("profile.applications", $read);
+    $readAppsIds = new MongoDB\Driver\Query([], ['_id' => 1, 'total' => 1]);
+    $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
     
-    $insertProgrammers = new MongoDB\Driver\BulkWrite;
 
-    $manager->executeBulkWrite('profile.applications', $bulk);
     $programmer = array(
         "first_name" => "Daniel",
         "last_name" => "Miniailo",
@@ -48,10 +50,11 @@ try {
         array_push($programmer['applications'], $id);
     }
 
-    $manager->executeBulkWrite('profile.programmers', $bulk);
+    $insertDevs = new MongoDB\Driver\BulkWrite;
+    $manager->executeBulkWrite('profile.developers', $insertDevs);
 
 } catch (\MongoDB\Driver\Exception\Exception $e) {
-    echo "Fetching apps ids is failed";
+    echo "Something went wrong\n";
     echo $e->getTraceAsString();
     exit(1);
 }
