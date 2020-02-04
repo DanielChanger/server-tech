@@ -2,15 +2,22 @@
 
 $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
 
-$removeApps = new MongoDB\Driver\BulkWrite;
-$removeApps->delete([], ['limit' => false]);
-$manager->executeBulkWrite('profile.applications', $removeApps);
-
 $removeDevs = new MongoDB\Driver\BulkWrite;
 $removeDevs->delete([], ['limit' => false]);
 $manager->executeBulkWrite('profile.developers', $removeDevs);
 
-$applicationsList = array(
+$developer = array(
+    "first_name" => "Daniel",
+    "last_name" => "Miniailo",
+    "group" => "121-16-1",
+    "profile" => "Java Developer",
+);
+
+$insertDev = new MongoDB\Driver\BulkWrite;
+$insertDev->insert($developer);
+$devCursor = $manager->executeBulkWrite('profile.developers', $insertDev);
+
+$applications = array(
     array(
         "name" => "flOw",
         "createdAt" => new DateTime(),
@@ -25,40 +32,16 @@ $applicationsList = array(
     )
 );
 
-$insertApps = new MongoDB\Driver\BulkWrite;
-foreach ($applicationsList as $app) {
-    $insertApps->insert($app);
-}
+$updateDev = new MongoDB\Driver\BulkWrite;
+$updateDev->update(['_id' => $devCursor->getUpsertedIds()[0]], ['$set' => ['applications' => $applications]]);
+$manager->executeBulkWrite('profile.developers', $updateDev);
 
-$manager->executeBulkWrite('profile.applications', $insertApps);
-
-$developer = array(
-    "first_name" => "Daniel",
-    "last_name" => "Miniailo",
-    "group" => "121-16-1",
-    "profile" => "Java Developer",
-);
-
-$insertDev = new MongoDB\Driver\BulkWrite;
-$insertDev->insert($developer);
-$manager->executeBulkWrite('profile.developers', $insertDev);
-
+$fetchDeveloper = new MongoDB\Driver\Query([], ['_id' => 0]);
 try {
-    $readAppsIds = new MongoDB\Driver\Query([], ['projection' => ['name' => 0, 'created_at' => 0, "_id" => 1]]);
-    $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
-
+    $fetchedDev = $manager->executeQuery('profile.developers', $fetchDeveloper);
+    echo '<pre>'; print_r($fetchedDev->toArray()); echo '</pre>';
 } catch (\MongoDB\Driver\Exception\Exception $e) {
     echo $e->getTraceAsString();
-    exit(1);
 }
-    $applications = array();
-    foreach ($appsIds as $id) {
-        array_push($applications, $id);
-    }
 
-echo '<pre>'; print_r($applications); echo '</pre>';
-
-    $updateDev = new MongoDB\Driver\BulkWrite;
-    $updateDev->update(['first_name' => 'Daniel'], ['$set' => ['applications' => $applications]]);
-    $manager->executeBulkWrite('profile.developers', $updateDev);
 ?>
