@@ -33,7 +33,7 @@ $applications = [
 ];
 
 $updateDev = new MongoDB\Driver\BulkWrite;
-$updateDev->update(['_id' => $devCursor->getUpsertedIds()[0]], ['$set' => ['applications' => $applications]]);
+$updateDev->update([], ['$set' => ['applications' => $applications]]);
 $manager->executeBulkWrite('profile.developers', $updateDev);
 
 $fetchDeveloper = new MongoDB\Driver\Query([], []);
