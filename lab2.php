@@ -36,9 +36,7 @@ try {
     $readAppsIds = new MongoDB\Driver\Query([], ['_id' => 1, 'total' => 1]);
     $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
-    
-
-    $programmer = array(
+    $developer = array(
         "first_name" => "Daniel",
         "last_name" => "Miniailo",
         "group" => "121-16-1",
@@ -47,11 +45,12 @@ try {
     );
 
     foreach ($appsIds as $id) {
-        array_push($programmer['applications'], $id);
+        array_push($developer['applications'], $id);
     }
 
-    $insertDevs = new MongoDB\Driver\BulkWrite;
-    $manager->executeBulkWrite('profile.developers', $insertDevs);
+    $insertDev = new MongoDB\Driver\BulkWrite;
+    $insertDev->insert($developer);
+    $manager->executeBulkWrite('profile.developers', $insertDev);
 
 } catch (\MongoDB\Driver\Exception\Exception $e) {
     echo "Something went wrong\n";
