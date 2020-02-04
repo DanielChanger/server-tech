@@ -46,7 +46,7 @@ try {
     $manager->executeBulkWrite('profile.developers', $insertDev);
 
 
-    $readAppsIds = new MongoDB\Driver\Query([], ['name' => 0, 'created_at' => 0]);
+    $readAppsIds = new MongoDB\Driver\Query([], ['name' => 0, 'created_at' => 0, "_id" => 1]);
     $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
     foreach ($appsIds as $id) {
