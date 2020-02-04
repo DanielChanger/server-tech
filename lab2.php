@@ -56,6 +56,8 @@ try {
         array_push($applications, $id);
     }
 
+echo '<pre>'; print_r($applications); echo '</pre>';
+
     $updateDev = new MongoDB\Driver\BulkWrite;
     $updateDev->update(['first_name' => 'Daniel'], ['$set' => ['applications' => $applications]]);
     $manager->executeBulkWrite('profile.developers', $updateDev);
