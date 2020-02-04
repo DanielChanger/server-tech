@@ -22,7 +22,7 @@ $applicationsList = array(
     ),
     array(
         "name" => "The Journey",
-        "createdAt" => new DateTime()
+        "created_at" => new DateTime()
     )
 );
 
@@ -33,23 +33,28 @@ foreach ($applicationsList as $app) {
 $manager->executeBulkWrite('profile.applications', $insertApps);
 
 try {
-    $readAppsIds = new MongoDB\Driver\Query([], ['_id' => 1, 'total' => 1]);
-    $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
     $developer = array(
         "first_name" => "Daniel",
         "last_name" => "Miniailo",
         "group" => "121-16-1",
         "profile" => "Java Developer",
-        "applications" => array()
     );
+
+    $insertDev = new MongoDB\Driver\BulkWrite;
+    $insertDev->insert($developer);
+    $manager->executeBulkWrite('profile.developers', $insertDev);
+
+
+    $readAppsIds = new MongoDB\Driver\Query([], ['name' => 0, 'created_at' => 0]);
+    $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
     foreach ($appsIds as $id) {
         array_push($developer['applications'], $id);
     }
 
-    $insertDev = new MongoDB\Driver\BulkWrite;
-    $insertDev->insert($developer);
+    $updateDev = new MongoDB\Driver\BulkWrite;
+    $updateDev->insert($developer);
     $manager->executeBulkWrite('profile.developers', $insertDev);
 
 } catch (\MongoDB\Driver\Exception\Exception $e) {
