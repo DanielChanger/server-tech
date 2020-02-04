@@ -44,7 +44,7 @@ $insertDev->insert($developer);
 $manager->executeBulkWrite('profile.developers', $insertDev);
 
 try {
-    $readAppsIds = new MongoDB\Driver\Query([], ['name' => 0, 'created_at' => 0, "_id" => 1]);
+    $readAppsIds = new MongoDB\Driver\Query([], ['projection' => ['name' => 0, 'created_at' => 0, "_id" => 1]]);
     $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
 } catch (\MongoDB\Driver\Exception\Exception $e) {
