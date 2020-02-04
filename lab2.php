@@ -7,7 +7,7 @@ $removeApps->delete([], ['limit' => false]);
 $result = $manager->executeBulkWrite('profile.applications', $removeApps);
 
 if ($result) {
-    echo "Applications collection refreshed successfully\n";
+    echo nl2br("Applications collection refreshed successfully");
 }
 
 $removeDevs = new MongoDB\Driver\BulkWrite;
@@ -15,7 +15,7 @@ $removeDevs->delete([], ['limit' => false]);
 $result = $manager->executeBulkWrite('profile.developers', $removeDevs);
 
 if ($result) {
-    echo "Developers collection refreshed successfully\n";
+    echo nl2br("Developers collection refreshed successfully");
 }
 
 $applicationsList = array(
@@ -41,7 +41,7 @@ foreach ($applicationsList as $app) {
 $result = $manager->executeBulkWrite('profile.applications', $insertApps);
 
 if ($result) {
-    echo "New applications documents inserted successfully\n";
+    echo nl2br("New applications documents inserted successfully");
 }
 
 $developer = array(
@@ -56,7 +56,7 @@ $insertDev->insert($developer);
 $result = $manager->executeBulkWrite('profile.developers', $insertDev);
 
 if ($result) {
-    echo "New developer document inserted successfully\n";
+    echo nl2br("New developer document inserted successfully");
 }
 
 try {
@@ -64,9 +64,12 @@ try {
     $result = $appsIds = $manager->executeQuery("profile.applications", $readAppsIds);
 
     if ($result) {
-        echo "Apps _ids fetched successfully\n";
+        echo nl2br("Apps _ids fetched successfully");
     }
-
+} catch (\MongoDB\Driver\Exception\Exception $e) {
+    echo $e->getTraceAsString();
+    exit(1);
+}
     $applications = array();
     foreach ($appsIds as $id) {
         array_push($applications, $id);
@@ -76,12 +79,6 @@ try {
     $updateDev->update(['first_name' => 'Daniel'], ['$set' => ['applications' => $applications]]);
     $result = $manager->executeBulkWrite('profile.developers', $updateDev);
     if ($result) {
-        echo "Developer document updated successfully\n";
+        echo nl2br("Developer document updated successfully");
     }
-
-} catch (\MongoDB\Driver\Exception\Exception $e) {
-    echo "Something went wrong\n";
-    echo $e->getTraceAsString();
-    exit(1);
-}
 ?>
