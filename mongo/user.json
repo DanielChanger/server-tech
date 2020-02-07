@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5e3d81e3a17a476b7537d7f2"},"isAdmin":true,"usernmame":"admin","password":"admin","first_name":"Daniel","last_name":"Changer"}
+{"_id":{"$oid":"5e3d84c4e945836b75c9c931"},"isAdmin":true,"usernmame":"student","password":"student","first_name":"Danila","last_name":"Miniaila"}
+{"_id":{"$oid":"5e3d84e1e945836b75c9c932"},"isAdmin":true,"usernmame":"student2","password":"student2","first_name":"Artem","last_name":"Lisich"}

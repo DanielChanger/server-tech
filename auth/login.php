@@ -12,12 +12,15 @@ try {
 }
 
 if ($user) {
-//    header("Location: anotherDirectory/anotherFile.php?user=" . $user->toArray()["_id"]);
-    echo "SUCCESS";
+    session_start();
+    $_SESSION['isAdmin'] = (bool) $user->toArray()['isAdmin'];
+
     echo $user;
+    header("Location: groups/groups.php" . $user->toArray()["_id"]);
+
 } else {
-//    header("Location: anotherDirectory/error.php");
-    echo "FAILURE";
+    header("HTTP/1.1 401 Unauthorized");
+    exit;
 }
 ?>
 
