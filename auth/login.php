@@ -6,7 +6,7 @@ $password = $_POST['password'];
 
 $findUser = new MongoDB\Driver\Query(['username' => $username, 'password' => $password], []);
 try {
-    $user = $dbManager->executeQuery("school.user", $findUser);
+    $user = $dbManager->executeQuery("reporting.user", $findUser);
 } catch (\MongoDB\Driver\Exception\Exception $e) {
     echo $e->getTraceAsString();
 }
