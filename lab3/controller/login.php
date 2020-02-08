@@ -1,13 +1,12 @@
 <?php
 
 //set_include_path('/opt/lampp/htdocs/lab3/');
-include (__DIR__.'/UsersService.php');
+include (__DIR__.'../domain/UsersService.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    include 'lab3/view/login.html';
-}
+    include (__DIR__.'../view/login.html');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+} else if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -24,6 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         header("HTTP/1.1 401 Unauthorized");
     }
-
+} else if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+    session_abort();
+    include (__DIR__.'../view/login.html');
 }
 
