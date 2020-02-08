@@ -1,10 +1,9 @@
 <?php
 
-//set_include_path('/opt/lampp/htdocs/lab3/');
-include (__DIR__.'/../domain/UsersService.php');
+require_once (__DIR__.'/../domain/UsersService.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    include (__DIR__.'/../view/login.html');
+    require (__DIR__.'/../view/login.html');
 
 } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -25,6 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 } else if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     session_abort();
-    include (__DIR__.'/../view/login.html');
+    require (__DIR__.'/../view/login.html');
 }
 
