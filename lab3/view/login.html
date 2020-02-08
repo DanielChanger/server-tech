@@ -7,7 +7,7 @@
     <script src="/lab3/view/static/login.js" type="text/javascript"></script>
 </head>
 <body>
-<form id="login-form" onsubmit="handleRequest()">
+<form id="login-form" onsubmit="handleRequest(); this.preventDefault()">
     <label>
         Username: <input name="username" type="text"/>
     </label>
