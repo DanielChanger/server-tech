@@ -2,6 +2,7 @@ function handleRequest() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
+            console.log(this.status);
             if (this.status === 201) {
                 successHandler(xhttp);
             } else {
