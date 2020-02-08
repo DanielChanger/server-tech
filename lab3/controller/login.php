@@ -1,6 +1,6 @@
 <?php
 
-require 'lab3/domain/UsersService.php';
+require '../domain/UsersService.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     include 'lab3/view/login.html';
