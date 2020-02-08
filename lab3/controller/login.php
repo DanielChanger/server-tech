@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (!empty($userResult)) {
         session_start();
-        $_SESSION['isAdmin'] = $userResult[0]->isAdmin;
-        $_SESSION['group'] = $userResult[0]->group;
+        $_SESSION['isAdmin'] = property_exists($userResult, 'isAdmin') ? $userResult[0]->group : false;
+        $_SESSION['group'] = property_exists($userResult, 'group') ? $userResult[0]->group : null;
         header('HTTP/1.1 201 Created');
 
     } else {
