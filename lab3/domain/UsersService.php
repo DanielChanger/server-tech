@@ -5,7 +5,7 @@ require (__DIR__.'/../domain/AbstractDomainService.php');
 
 class UsersService extends AbstractDomainService
 {
-    private $collectionName = DB_NAME . 'users';
+    private $collectionName = DB_NAME . '.users';
 
     public function getUserByCreds(string $username, string $password)
     {
