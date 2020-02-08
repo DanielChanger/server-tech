@@ -1,7 +1,7 @@
 <?php
 
-require './constants.php';
-require './AbstractDomainService.php';
+require 'constants.php';
+require 'AbstractDomainService.php';
 
 class GroupsService extends AbstractDomainService
 {
