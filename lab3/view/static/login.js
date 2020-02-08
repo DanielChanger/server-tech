@@ -1,4 +1,6 @@
 function handleRequest() {
+    let loginForm = document.getElementById("login-form");
+    loginForm.addEventListener('submit', (ev => ev.preventDefault()));
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -11,7 +13,7 @@ function handleRequest() {
         }
     };
     xhttp.open("POST", "https://localhost/lab3/controller/login.php", true);
-    xhttp.send(new FormData(document.getElementById("login-form")));
+    xhttp.send(new FormData(loginForm));
 }
 
 function successHandler(xhttp) {
