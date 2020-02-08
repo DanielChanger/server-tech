@@ -15,8 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     if ($user) {
         session_start();
-        $_SESSION['isAdmin'] = $user->toArray()['isAdmin'];
-        $_SESSION['group'] = $user->toArray()['group'];
+        $_SESSION['isAdmin'] = $user->toArray()[0]['isAdmin'];
+        $_SESSION['group'] = $user->toArray()[0]['group'];
         header('HTTP/1.1 201 Created');
 
     } else {
