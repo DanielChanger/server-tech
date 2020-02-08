@@ -1,12 +1,12 @@
 function handleRequest() {
     let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange(function () {
+    xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 201) {
             successHandler(xhttp);
         } else {
             failureHandler(xhttp);
         }
-    });
+    };
     xhttp.open("POST", "/lab3/controller/login.php", true);
     xhttp.send(new FormData(document.getElementById("login-form")));
 }
