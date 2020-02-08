@@ -1,6 +1,7 @@
 <?php
 
-require '../domain/UsersService.php';
+//set_include_path('/opt/lampp/htdocs/lab3/');
+include (__DIR__.'/UsersService.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     include 'lab3/view/login.html';
