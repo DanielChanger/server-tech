@@ -4,7 +4,7 @@
 include (__DIR__.'/../domain/UsersService.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    include (__DIR__.'../view/login.html');
+    include (__DIR__.'/../view/login.html');
 
 } else if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -25,6 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     }
 } else if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
     session_abort();
-    include (__DIR__.'../view/login.html');
+    include (__DIR__.'/../view/login.html');
 }
 
