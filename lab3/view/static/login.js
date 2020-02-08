@@ -1,11 +1,3 @@
-// let loginForm;
-// function addListeners() {
-//     loginForm.addEventListener('submit', (ev) => {
-//         ev.preventDefault();
-//         handleRequest();
-//     });
-// }
-
 function handleRequest() {
     let loginForm = document.getElementById("login-form");
     let xhttp = new XMLHttpRequest();
