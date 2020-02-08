@@ -2,7 +2,7 @@
 windows.onload(() => {
     let loginForm = document.getElementById("login-form");
     loginForm.addEventListener('submit', () => handleRequest());
-};
+});
 
 function handleRequest() {
     let xhttp = new XMLHttpRequest();
