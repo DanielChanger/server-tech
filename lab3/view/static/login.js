@@ -7,13 +7,13 @@ function handleRequest() {
             failureHandler(xhttp);
         }
     });
-    xhttp.open("POST", "controller/login.php", true);
+    xhttp.open("POST", "/lab3/controller/login.php", true);
     xhttp.send(new FormData(document.getElementById("login-form")));
 }
 
 function successHandler(xhttp) {
     alert("You are logged in. CONGRATS");
-    xhttp.open("GET", "controller/group.php", true);
+    xhttp.open("GET", "/lab3/controller/group.php", true);
     xhttp.send();
 }
 
