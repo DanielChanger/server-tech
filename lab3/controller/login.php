@@ -15,12 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $userService = new UsersService();
     $user = $userService->getUserByCreds($username, $password);
-    $userResult = $user->toArray();
+    $userResult = $user->toArray()[0];
 
     if (!empty($userResult)) {
         session_start();
-        $_SESSION['isAdmin'] = property_exists($userResult, 'isAdmin') ? $userResult[0]->group : false;
-        $_SESSION['group'] = property_exists($userResult, 'group') ? $userResult[0]->group : null;
+        $_SESSION['isAdmin'] = isset($userResult->isAdmin) ? $userResult->isAdmin : false;
+        $_SESSION['group'] = isset($userResult->group) ? $userResult->group : null;
         header('HTTP/1.1 201 Created');
 
     } else {
