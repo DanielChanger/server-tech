@@ -8,7 +8,7 @@ function handleRequest() {
         }
     });
     xhttp.open("POST", "controller/login.php", true);
-    xhttp.send(new FormData(loginForm));
+    xhttp.send(new FormData(document.getElementById("login-form")));
 }
 
 function successHandler(xhttp) {
