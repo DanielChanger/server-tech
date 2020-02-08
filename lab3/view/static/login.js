@@ -1,10 +1,12 @@
 function handleRequest() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 201) {
-            successHandler(xhttp);
-        } else {
-            failureHandler(xhttp);
+        if (this.readyState === 4) {
+            if (this.status === 201) {
+                successHandler(xhttp);
+            } else {
+                failureHandler(xhttp);
+            }
         }
     };
     xhttp.open("POST", "/lab3/controller/login.php", true);
