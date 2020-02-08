@@ -1,6 +1,13 @@
+let loginForm;
+function addListeners() {
+    loginForm = document.getElementById("login-form");
+    loginForm.addEventListener('submit', (ev) => {
+        ev.preventDefault();
+        handleRequest();
+    });
+}
+
 function handleRequest() {
-    let loginForm = document.getElementById("login-form");
-    loginForm.addEventListener('submit', (ev => ev.preventDefault()));
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
