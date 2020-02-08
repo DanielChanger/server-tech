@@ -1,1 +1,0 @@
-const HOST = "http://localhost/lab3";
