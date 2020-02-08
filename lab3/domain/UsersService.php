@@ -1,6 +1,7 @@
 <?php
 
-include_once './constants.php';
+require_once './constants.php';
+require_once './AbstractDomainService.php';
 
 class UsersService extends AbstractDomainService
 {
