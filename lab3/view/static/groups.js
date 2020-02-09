@@ -1,15 +1,15 @@
 window.addEventListener(
-    'loadstart', () => getGroups()
+    'load', () => getGroups()
 );
 
 function getGroups() {
-    let xhttp = new XMLHttpRequest()
+    const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
-                successHandler(xhttp);
+                successHandler(this);
             } else {
-                failureHandler(xhttp);
+                failureHandler(this);
             }
         }
     };
