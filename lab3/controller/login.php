@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
-    session_abort();
+    session_destroy();
     require(__DIR__ . '/../view/login.html');
     exit;
 }
