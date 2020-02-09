@@ -5,8 +5,6 @@ require_once(__DIR__ . '/../filter/sessionFilter.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
-    require(__DIR__ . '/../view/groups.html');
-
     $groupsService = new GroupsService();
 
     if ((bool) $_SESSION['isAdmin']) {

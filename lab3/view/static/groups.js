@@ -3,6 +3,7 @@ window.addEventListener(
 );
 
 function getGroups() {
+    let xhttp = new XMLHttpRequest()
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status === 200) {
@@ -18,7 +19,8 @@ function getGroups() {
 
 
 function successHandler(xhttp) {
-    console.log(xhttp.responseText);
+    console.log(JSON.parse(xhttp.responseText));
+    console.log(JSON.parse(xhttp.responseText).results);
 }
 
 function failureHandler(xhttp) {

@@ -2,12 +2,6 @@
 
 require_once(__DIR__ . '/../domain/UsersService.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    require(__DIR__ . '/../view/login.html');
-    exit;
-}
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = $_POST['username'];
