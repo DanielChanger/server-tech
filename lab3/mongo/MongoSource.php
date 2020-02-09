@@ -28,5 +28,4 @@ class MongoSource
     {
         return new MongoDB\Driver\BulkWrite;
     }
-
 }
