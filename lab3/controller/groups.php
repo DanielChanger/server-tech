@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     if ((bool) $_SESSION['isAdmin']) {
         $groups = $groupsService->getAllGroupsNumbers();
         $response = ['groups:' => $groups];
-        echo $response;
+        echo json_encode($response);
 
     } else {
         header("HTTP/1.1 200 OK");
