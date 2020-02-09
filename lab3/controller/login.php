@@ -16,10 +16,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userService = new UsersService();
     $user = $userService->getUserByCreds($username, $password)[0];
 
-    if (!empty($userResult)) {
+    if (!empty($user)) {
         session_start();
-        $_SESSION['isAdmin'] = isset($user->isAdmin) ? $userResult->isAdmin : false;
-        $_SESSION['group'] = isset($user->group) ? $userResult->group : null;
+        $_SESSION['isAdmin'] = isset($user->isAdmin) ? $user->isAdmin : false;
+        $_SESSION['group'] = isset($user->group) ? $user->group : null;
         header('HTTP/1.1 201 Created');
 
     } else {
