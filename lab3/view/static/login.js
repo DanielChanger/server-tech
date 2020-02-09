@@ -3,7 +3,7 @@ function handleRequest() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
-            if (this.status === 201 || this.status === 200) {
+            if (this.status === 201) {
                 successHandler(xhttp);
             } else {
                 failureHandler(xhttp);
