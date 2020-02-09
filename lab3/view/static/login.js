@@ -3,7 +3,6 @@ function handleRequest() {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4) {
-            console.log(this.status);
             if (this.status === 201) {
                 successHandler(xhttp);
             } else {
@@ -17,12 +16,18 @@ function handleRequest() {
 
 function successHandler(xhttp) {
     alert("You are logged in. CONGRATS");
-    xhttp.open("GET", "https://localhost/lab3/controller/groups.php", true);
-    xhttp.send();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4) {
+            if (!this.status === 200) {
+                failureHandler(xhttp);
+            }
+        }
+        xhttp.open("GET", "https://localhost/lab3/controller/groups.php", true);
+        xhttp.send();
+    }
 }
 
 
 function failureHandler(xhttp) {
     alert("SOMETHING WENT WRONG");
-
 }
