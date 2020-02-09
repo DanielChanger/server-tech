@@ -15,7 +15,7 @@ function handleRequest() {
 }
 
 function successHandler(xhttp) {
-    alert("You are logged in. CONGRATS");
+    // alert("You are logged in. CONGRATS");
 
     xhttp.open("GET", "https://localhost/lab3/controller/groups.php", true);
     xhttp.send();
@@ -24,5 +24,5 @@ function successHandler(xhttp) {
 
 
 function failureHandler(xhttp) {
-    alert("SOMETHING WENT WRONG");
+    // alert("SOMETHING WENT WRONG");
 }
