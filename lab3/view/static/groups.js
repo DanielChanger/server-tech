@@ -19,7 +19,7 @@ function getGroups() {
 
 
 function successHandler(xhttp) {
-    const groups = JSON.parse(xhttp.responseText).groups;
+    const groups = JSON.parse(xhttp.responseText);
     groups.forEach((group) => {
         let groupNode = document.createElement("p");
         let groupNumber = document.createTextNode(group.number);
