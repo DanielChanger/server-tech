@@ -12,15 +12,20 @@ class MongoSource
         $this->dbManager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
     }
 
-    public function getManager() {
+    public function getManager()
+    {
         return $this->dbManager;
     }
 
-    public function executeQuery($collectionName, $filters = [], $options = []) {
-        return $this->getManager()->executeQuery($collectionName, new MongoDB\Driver\Query($filters, $options));
+    public function executeQuery($collectionName, $filters = [], $options = [])
+    {
+        return $this->getManager()
+            ->executeQuery($collectionName, new MongoDB\Driver\Query($filters, $options))
+            ->toArray();
     }
 
-    public function getBulkWrite() {
+    public function getBulkWrite()
+    {
         return new MongoDB\Driver\BulkWrite;
     }
 

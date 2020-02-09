@@ -17,7 +17,7 @@ function handleRequest() {
 
 function successHandler(xhttp) {
     alert("You are logged in. CONGRATS");
-    xhttp.open("GET", "https://localhost/lab3/controller/group.php", true);
+    xhttp.open("GET", "https://localhost/lab3/controller/groups.php", true);
     xhttp.send();
 }
 

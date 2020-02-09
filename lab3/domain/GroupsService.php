@@ -7,10 +7,15 @@ class GroupsService extends AbstractDomainService
 {
     private $collectionName = DB_NAME . '.groups';
 
-    public function getAllGroups()
+    public function getAllGroupsNumbers()
     {
-        $groups = $this->dataSource->executeQuery($this->collectionName);
-        return $groups->toArray();
+        $options = [
+            'projection' => [
+                'number' => 1,
+                '_id' => 0,
+                ],
+            ];
+        return $this->dataSource->executeQuery($this->collectionName, [], $options);
     }
 
 }
