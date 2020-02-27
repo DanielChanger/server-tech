@@ -1,8 +1,6 @@
 <?php
-
-require_once(__DIR__ . '/../domain/GroupsService.php');
-require_once(__DIR__ . '/../domain/UsersService.php');
 require_once(__DIR__ . '/../filter/sessionFilter.php');
+require_once(__DIR__ . '/../includes.php');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode('/', $uri);

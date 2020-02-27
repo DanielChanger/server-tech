@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../domain/UsersService.php');
+require_once(__DIR__ . '/../includes.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

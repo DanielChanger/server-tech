@@ -1,7 +1,6 @@
 <?php
 
-require (__DIR__ . '/../mongo/constants.php');
-require (__DIR__.'/../domain/AbstractDomainService.php');
+require_once(__DIR__ . '/../includes.php');
 
 class UsersService extends AbstractDomainService
 {
