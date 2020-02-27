@@ -15,7 +15,7 @@ if ($uri[1] !== 'groups') {
 }
 
 if (isset($uri[2])) {
-    $groupNumber = (int)$uri[2];
+    $groupNumber = $uri[2];
 }
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         $response = ['students' => $groupStudents];
         header("HTTP/1.1 200 OK");
         echo json_encode($response);
-        
+
     } else {
         if ((bool)$_SESSION['isAdmin']) {
             $groups = $groupsService->getAllGroupsNumbers();
