@@ -9,13 +9,13 @@ class GroupsService extends AbstractDomainService
 
     public function getAllGroupsNumbers()
     {
-        $options = [
-            'projection' => [
-                'number' => 1,
-                '_id' => 0,
-                ],
-            ];
+        $options = ['projection' => ['number' => 1, '_id' => 0,]];
         return $this->dataSource->executeQuery($this->collectionName, [], $options);
+    }
+
+    public function getGroupByNumber($number) {
+        $filters = ['number' => $number];
+        return $this->dataSource->executeQuery($this->collectionName, $filters);
     }
 
 }

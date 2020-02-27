@@ -13,5 +13,8 @@ class UsersService extends AbstractDomainService
         return $this->dataSource->executeQuery($this->collectionName, $filters);
     }
 
-
+    public function getStudentsByIds($studentIds) {
+        $filters = ['oid' => ['$in' => $studentIds]];
+        return $this->dataSource->executeQuery($this->collectionName, $filters);
+    }
 }
